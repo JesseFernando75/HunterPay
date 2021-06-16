@@ -22,7 +22,15 @@
 
     @section('nav&footer')
 
-    <!-- Início mensagem cadastro -->
+    <!-- Início mensagem alterar -->
+        @if(session('Mensagem'))
+            <div class="row">
+                <div class="alert alert-success text-center py-3">
+                    {{ session('Mensagem') }}
+                </div>
+            </div>
+        @endif
+
         @if(session('Retorno'))
             <div class="row">
                 <div class="alert alert-danger text-center py-3">
@@ -30,7 +38,7 @@
                 </div>
             </div>
         @endif
-    <!-- Fim mensagem cadastro -->
+    <!-- Fim mensagem alterar -->
 
     <!-- Início formulário -->
         <div class="row">
@@ -68,7 +76,7 @@
                         <button class="btn btn-dark" type="submit">Entrar</button>
                       </div>
 
-                      <a href="{{ route('register') }}" class="text-muted">Não tem registro? Cadastre-se.</a>
+                      <a href="{{ route('register') }}" class="text-muted">Não tem conta? Cadastre-se.</a>
                     </form> 
                 </div>
             </div>

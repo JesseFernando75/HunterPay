@@ -88,6 +88,7 @@ class RegisterController extends Controller
     }
 
     protected function redirectTo(){
+        session()->flash('Mensagem', "Cadastro com sucesso.");
         return route('login');
     }
 

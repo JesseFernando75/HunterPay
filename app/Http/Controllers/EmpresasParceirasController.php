@@ -23,4 +23,43 @@ class EmpresasParceirasController extends Controller
         $e1->save();
         return view('empresa_parceira/cadastroempresalogin', ['empresa' => $e1]);
     }
+
+    function obtemListaEmpresas(){
+        $empresa = EmpresaParceira::all();
+
+        if(sizeof($empresa) == 0){
+            session()->flash('Retorno', "Não há nenhuma empresa parceira cadastrada no momento.");
+            return redirect()->route('bemvindo');
+        } else{
+            return view('admin/listaempresas', ['empresa' => $empresa]);
+        }
+    }
+
+     function editaEmpresa($id){
+        $empresa = EmpresaParceira::find($id);
+        return view('empresa_parceira/editarempresa', ['e' => $empresa]);
+    }
+
+    function editar(Request $request, $id){
+        $empresa = EmpresaParceira::find($id);
+
+        $empresa->razao_social = $request->input('razao_social');
+        $empresa->cnpj = $request->input('cnpj');
+        $empresa->telefone = $request->input('telefone');
+        $empresa->token = $request->input('token');
+        $empresa->num_conta = $request->input('num_conta');
+
+        $empresa->save();
+        session()->flash("Mensagem", "A empresa {$empresa->razao_social} foi alterada com sucesso.");
+        return redirect()->route('listaempresas'); 
+    }
+
+    function excluiEmpresa($id){
+        $empresa = EmpresaParceira::findOrFail($id);
+
+        $empresa->delete();
+        session()->flash("Mensagem", "Excluído com sucesso.");
+        return redirect()->route('listaempresas'); 
+    }
+
 }

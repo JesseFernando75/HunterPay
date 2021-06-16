@@ -50,9 +50,23 @@ Route::middleware('auth')->group(function(){
 
         Route::get('/admin/listaclientes', [ClientesController::class, 'obtemListaClientes'])->name('listaclientes');
 
+        Route::get('/admin/listaempresas', [EmpresasParceirasController::class, 'obtemListaEmpresas'])->name('listaempresas');
+
         Route::get('/admin/bem-vindo', function() {
-            return view('/admin/inicial');
+            return view('/admin/bemvindo');
         })->name('bemvindo');
+
+        Route::post('admin/cliente/alterar/{id}', [ClientesController::class, 'editar'])->name('editarcliente');
+
+        Route::get('admin/cliente/editar/{id}', [ClientesController::class, 'editaCliente'])->name('editacliente');
+
+        Route::post('admin/empresa/alterar/{id}', [EmpresasParceirasController::class, 'editar'])->name('editarempresa');
+
+        Route::get('admin/empresa/editar/{id}', [EmpresasParceirasController::class, 'editaEmpresa'])->name('editaempresa');
+
+        Route::get('admin/cliente/excluir/{id}', [ClientesController::class, 'excluiCliente'])->name('excluicliente');
+
+        Route::get('admin/empresa/excluir/{id}', [EmpresasParceirasController::class, 'excluiEmpresa'])->name('excluiempresa');
 
     });
     //Fim Admin

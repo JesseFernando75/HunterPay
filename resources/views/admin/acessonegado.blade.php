@@ -7,12 +7,12 @@
     @endsection
 
     @section('nav&footer')
-        <!-- Texto principal -->
-        <div class="row">
-            <div class="alert alert-danger text-center py-4">
-                Desculpe, você não tem permissão para acessar esta página.         
+    <!-- Texto principal -->
+        <div class="d-flex justify-content-center align-items-center" style="height: 700px;">
+            <div class="text-center">
+                <h1 class="text-light">Acesso <span style="color: #f9f871;">negado.</span></h1>
+                <p class="text-muted">Desculpe, você não permissão para acessar esta página.</p>
             </div>
         </div>
-
-        <!-- Fim Texto principal -->
+    <!-- Fim texto principal -->
     @endsection

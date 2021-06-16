@@ -43,6 +43,29 @@
 	 <header>
 		<nav class="navbar navbar-expand-md navbar-light shadow-sm py-3" style="background-color: #616161;">
             <div class="container">
+            @guest
+                @if (Route::has('login'))
+                <a class="navbar-brand" href="{{ route('home') }}">
+                        <span class="font-weight-bold text-white" style="font-size: 18pt;">Hunter</span>
+                        <span class="font-weight-bold" style="color: #f9f871; font-size: 18pt;">Pay</span>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                @endif
+
+                @if (Route::has('register'))
+                @endif
+                    @else
+                    @if (Auth::user()->isAdmin())
+                    <a class="navbar-brand" href="{{ route('bemvindo') }}">
+                        <span class="font-weight-bold text-white" style="font-size: 18pt;">Hunter</span>
+                        <span class="font-weight-bold" style="color: #f9f871; font-size: 18pt;">Pay</span>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+            @else
                 <a class="navbar-brand" href="{{ route('home') }}">
                     <span class="font-weight-bold text-white" style="font-size: 18pt;">Hunter</span>
                     <span class="font-weight-bold" style="color: #f9f871; font-size: 18pt;">Pay</span>
@@ -50,6 +73,8 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+            @endif
+            @endguest
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
@@ -65,8 +90,8 @@
                             @if (Auth::user()->isAdmin())
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav mr-auto">
-                                    <a class="nav-link text-light" href="#">Clientes</a>
-                                    <a class="nav-link text-light" href="#">Empresas Parceiras</a>
+                                    <a class="nav-link text-light" href="{{ route('listaclientes') }}">Clientes</a>
+                                    <a class="nav-link text-light" href="{{ 'listaempresas' }}">Empresas Parceiras</a>
                                 </ul>
                             </div>
                             @else

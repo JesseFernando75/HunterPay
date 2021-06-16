@@ -36,7 +36,7 @@
 
                     <div class="col-md-6 mb-3">
                        <label class="form-label">Senha</label>
-                       <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" readonly="readonly" required autocomplete="new-password">
+                       <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
                        @error('password')
                             <span class="invalid-feedback" role="alert">
@@ -47,7 +47,7 @@
 
                     <div class="col-md-6 mb-5">
                        <label class="form-label">Confirme sua senha</label>
-                       <input id="password-confirm" type="password" class="form-control" name="password_confirmation" readonly="readonly" required autocomplete="new-password">
+                       <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
 
                        @error('password')
                             <span class="invalid-feedback" role="alert">
