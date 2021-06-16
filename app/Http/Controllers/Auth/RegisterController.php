@@ -8,9 +8,12 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
+
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -62,12 +65,30 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+
+    protected function create(array $data){
+        $user = new User();
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->id_cliente = $data['id_cliente'];
+        $user->id_categoria = $data['id_categoria'];
+        $user->password = Hash::make($data['password']);
+        $user->save();
+
+        return $user;
     }
+
+    public function register(Request $request){
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        return $this->registered($request, $user)
+        ?: redirect($this->redirectPath());
+    }
+
+    protected function redirectTo(){
+        return route('login');
+    }
+
 }
