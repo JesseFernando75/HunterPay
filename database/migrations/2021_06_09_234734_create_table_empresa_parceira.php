@@ -16,10 +16,10 @@ class CreateTableEmpresaParceira extends Migration
         Schema::create('empresa_parceira', function (Blueprint $table) {
             $table->id();
             $table->string('razao_social');
-            $table->integer('cnpj');
-            $table->integer('telefone');
-            $table->string('email')->unique();
+            $table->string('cnpj')->unique();
+            $table->string('telefone');
             $table->string('token');
+            $table->integer('num_conta');
             $table->decimal('saldo', $precision = 15, $scale = 2);
             $table->timestamps();
         });

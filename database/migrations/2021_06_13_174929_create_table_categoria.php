@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableCliente extends Migration
+class CreateTableCategoria extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateTableCliente extends Migration
      */
     public function up()
     {
-        Schema::create('cliente', function (Blueprint $table) {
+        Schema::create('categoria', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $table->string('cpf')->unique();
-            $table->string('telefone');
-            $table->integer('num_conta');
-            $table->decimal('saldo', $precision = 15, $scale = 2);
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ class CreateTableCliente extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cliente');
+        Schema::dropIfExists('categoria');
     }
 }

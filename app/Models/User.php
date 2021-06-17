@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Categoria;
 
 class User extends Authenticatable
 {
@@ -20,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'id_cliente',
+        'id_categoria',
     ];
 
     /**
@@ -40,4 +43,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    function categoria(){
+        return $this->belongsTo(Categoria::class, 'id_categoria', 'id');
+    }
+
+    function isAdmin(){
+        return $this->categoria->id == 1;
+    }
+
 }

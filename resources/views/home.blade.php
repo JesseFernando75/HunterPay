@@ -1,23 +1,18 @@
-@extends('layouts.app')
+@extends('layouts.template')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+    @section('title') Bem-vindo @endsection
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+    @section('estilo')
 
-                    {{ __('You are logged in!') }}
-                </div>
+    @endsection
+
+    @section('nav&footer')
+        <!-- Texto principal -->
+        <div class="d-flex justify-content-center align-items-center" style="height: 700px;">
+            <div class="text-center">
+                <h1 class="text-light">O Hunter <span style="color: #f9f871;">Pay</span> é sua plataforma de pagamentos online.</h1>
+                <p class="display-6 text-muted">Livre-se das taxas, seja um Hunter <span style="color: #f9f871;">Payer</span> .</p>
             </div>
         </div>
-    </div>
-</div>
-@endsection
+        <!-- Fim texto principal -->
+    @endsection
