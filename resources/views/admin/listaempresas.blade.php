@@ -58,7 +58,7 @@
 					      		<td>R$ {{ $e->saldo }}</td>
 					      		<td>
 					      			<a href="{{ route('editaempresa', ['id' => $e->id]) }}" class="btn btn-info">Alterar</a>
-					      			<a href="#" data-bs-toggle="modal" data-bs-target="#exclusao" class="btn btn-danger" {{ $identificador = $e->id }} >Excluir</a>
+					      			<a href="#" data-bs-toggle="modal" data-bs-target="#exclusao" class="btn btn-danger">Excluir</a>
 					      			<a href="#" class="btn btn-light">Transações</a>
 					      			<a href="#" class="btn btn-warning">Crédito</a>
 					      		</td>
@@ -84,7 +84,7 @@
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-		        <button type="button" onclick="excluir({{ $identificador }})" class="btn btn-danger">Excluir</button>
+		        <button type="button" onclick="excluir({{ $e->id }})" class="btn btn-danger">Excluir</button>
 		      </div>
 		    </div>
 		  </div>

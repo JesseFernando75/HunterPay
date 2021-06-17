@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\EmpresasParceirasController;
+use App\Http\Controllers\CreditoClientesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +68,10 @@ Route::middleware('auth')->group(function(){
         Route::get('admin/cliente/excluir/{id}', [ClientesController::class, 'excluiCliente'])->name('excluicliente');
 
         Route::get('admin/empresa/excluir/{id}', [EmpresasParceirasController::class, 'excluiEmpresa'])->name('excluiempresa');
+
+        Route::post('admin/cliente/credito/{id}', [CreditoClientesController::class, 'adicionaCreditoCliente'])->name('adicionarcreditocliente');
+
+        Route::get('admin/cliente/listadetransacoes/{id}', [CreditoClientesController::class, 'obtemCreditosCliente'])->name('transacoescliente');
 
     });
     //Fim Admin

@@ -1,5 +1,11 @@
 @extends('layouts.template')
-	
+
+	@section('scripts')
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+	@endsection
+
 	@section('title') Lista de clientes @endsection
 
 	@routes
@@ -53,12 +59,12 @@
 					      		<td>{{ $v->nome }}</td>
 					      		<td>{{ $v->cpf }}</td>
 					      		<td>{{ $v->num_conta }}</td>
-					      		<td>R$ {{ $v->saldo }}</td>
+					      		<td>R$ {{ number_format($v->saldo, 2, ',', '.') }}</td>
 					      		<td>
 					      			<a href="{{ route('editacliente', ['id' => $v->id]) }}" class="btn btn-info">Alterar</a>
-					      			<a href="#" data-bs-toggle="modal" data-bs-target="#exclusao" class="btn btn-danger" {{ $identificador = $v->id }} >Excluir</a>
-					      			<a href="#" class="btn btn-light">Transações</a>
-					      			<a href="#" class="btn btn-warning">Crédito</a>
+					      			<a href="#" data-bs-toggle="modal" data-bs-target="#exclusao" class="btn btn-danger">Excluir</a>
+					      			<a href="{{ route('transacoescliente', ['id' => $v->id]) }}" class="btn btn-light">Transações</a>
+					      			<a href="#" data-toggle="modal" data-target="#adicionacredito" class="btn btn-warning">Crédito</a>
 					      		</td>
 				      	    </tr>
 				        @endforeach
@@ -69,7 +75,7 @@
 		</div>
 		<!-- Fim tabela -->	
 
-		<!-- Modal de confirmação -->
+		<!-- Modal de confirmação de exclusão -->
 		<div class="modal fade" id="exclusao" tabindex="-1" aria-hidden="true">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
@@ -82,12 +88,44 @@
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-		        <button type="button" onclick="excluir({{ $identificador }})" class="btn btn-danger">Excluir</button>
+		        <button type="button" onclick="excluir({{ $v->id }})" class="btn btn-danger">Excluir</button>
 		      </div>
 		    </div>
 		  </div>
 		</div>
-		<!-- Fim modal de confirmação -->
+		<!-- Fim modal de confirmação de exclusão -->
+
+		<!-- Modal adiciona crédito -->
+		<div class="modal fade" id="adicionacredito" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Adicionar crédito</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		      	<form id="form" action="{{ route('adicionarcreditocliente', ['id' => $v->id]) }}" method="POST">
+		      		@csrf
+		      		<input class="modalTextInput form-control" name="saldo" id="saldo" type="text" placeholder="1,99" />
+
+		      		<div class="modal-footer">
+		            	<button type="submit" class="btn btn-warning">Salvar</button>
+		            </div>
+		         </form>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<!-- Fim Modal adiciona crédito -->
+
+		<script type="text/javascript">
+   			$("#saldo").mask('#.##0,00', {
+   				reverse: true,
+				maxlength: false
+   			});
+    	</script>
 
 		<script>
 			function excluir(id){
