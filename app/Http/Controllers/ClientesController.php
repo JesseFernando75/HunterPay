@@ -61,5 +61,9 @@ class ClientesController extends Controller
         return redirect()->route('listaclientes'); 
     }
 
+    function atualizaSaldoCliente($cliente, $valor){
+        $cliente->saldo += $valor;
+        $cliente->save();
+    }
 
 }
