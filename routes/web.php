@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\EmpresasParceirasController;
 use App\Http\Controllers\CreditoClientesController;
+use App\Http\Controllers\StatusTransacoesController;
+use App\Http\Controllers\TransacoesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +47,6 @@ Route::post('/cadastro/cliente/adicionar', [ClientesController::class, 'cadastra
 //Fim Cliente
 
 Route::middleware('auth')->group(function(){
-
     //Admin
     Route::middleware('is_admin')->group(function(){
 
@@ -71,11 +72,17 @@ Route::middleware('auth')->group(function(){
 
         Route::post('admin/cliente/credito/{id}', [CreditoClientesController::class, 'adicionaCreditoCliente'])->name('adicionarcreditocliente');
 
-        Route::get('admin/cliente/listadetransacoes/{id}', [CreditoClientesController::class, 'obtemCreditosCliente'])->name('transacoescliente');
+        Route::get('admin/cliente/listadetransacoes/{id}', [TransacoesController::class, 'listatransacoesCliente'])->name('transacoescliente');
+
+        Route::get('/admin/transacao/cadastro/{id}', [TransacoesController::class, 'mostraCadastroTransacao'])->name('cadastrotransacaoauxiliar');
+
+        Route::post('admin/transacao/status/adicionar', [StatusTransacoesController::class, 'cadastrar'])->name('cadastrarstatustransacao');
+
+        Route::post('admin/transacao/cadastrar/{id}', [TransacoesController::class, 'cadastraTransacao'])->name('cadastratransacao');
 
     });
     //Fim Admin
-
+    
 });
 
 Auth::routes();

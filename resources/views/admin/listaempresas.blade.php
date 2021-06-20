@@ -34,7 +34,7 @@
 	  	<!-- Início tabela -->
 	  	<div class="row">
 	  		<div class="col-lg-10 col-md-11 col-sm-10 col-xs-10 mx-auto mt-5">
-			  	<table class="table col-12">
+			  	<table class="table table-responsive col-12">
 				  <thead>
 				    <tr class="text-light">
 				      <th scope="col">Código</th>
@@ -57,10 +57,10 @@
 					      		<td>{{ $e->num_conta }}</td>
 					      		<td>R$ {{ $e->saldo }}</td>
 					      		<td>
-					      			<a href="{{ route('editaempresa', ['id' => $e->id]) }}" class="btn btn-info">Alterar</a>
-					      			<a href="#" data-bs-toggle="modal" data-bs-target="#exclusao" class="btn btn-danger">Excluir</a>
-					      			<a href="#" class="btn btn-light">Transações</a>
-					      			<a href="#" class="btn btn-warning">Crédito</a>
+					      			<a href="{{ route('editaempresa', ['id' => $e->id]) }}" class="btn btn-info btn-sm">Alterar</a>
+					      			<a href="#" data-bs-toggle="modal" data-bs-target="#exclusao" class="btn btn-danger btn-sm">Excluir</a>
+					      			<a href="#" class="btn btn-light btn-sm">Transações</a>
+					      			<a href="#" class="btn btn-warning btn-sm">Crédito</a>
 					      		</td>
 				      	    </tr>
 				        @endforeach

@@ -15,4 +15,5 @@ class CreditoEmpresa extends Model
     function empresa(){
         return $this->belongsTo(EmpresaParceira::class, 'id_empresa', 'id');
     }
+
 }
