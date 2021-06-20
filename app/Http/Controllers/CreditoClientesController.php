@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\CreditoCliente;
 use App\Models\Cliente;
+use DB;
 
 class CreditoClientesController extends Controller
 {
     
-     function adicionaCreditoCliente(Request $request, $id){
+    function adicionaCreditoCliente(Request $request, $id){
         $valor = $request->input('saldo');
         $valor = str_replace('.', '', $valor);
         $valor = str_replace(',', '.', $valor);
@@ -31,9 +32,11 @@ class CreditoClientesController extends Controller
         $cliente->save();
     }
 
-    function obtemCreditosCliente($id){
+    function listaCreditosCliente($id){
         $cliente = Cliente::find($id);
-        $creditoscliente = $cliente->credito;
+        $creditoscliente = CreditoCliente::where('id_cliente', $cliente->id)
+        ->orderBy('data', 'desc')
+        ->get();
 
         if(sizeof($creditoscliente) == 0){
             session()->flash("Retorno", "O cliente $cliente->nome não possuí nenhum crédito adicionado.");

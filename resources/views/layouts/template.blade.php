@@ -91,7 +91,8 @@
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav mr-auto">
                                     <a class="nav-link text-light" href="{{ route('listaclientes') }}">Clientes</a>
-                                    <a class="nav-link text-light" href="{{ 'listaempresas' }}">Empresas Parceiras</a>
+                                    <a class="nav-link text-light" href="{{ route('listaempresas') }}">Empresas Parceiras</a>
+                                    <a class="nav-link text-light" href="#">Transações</a>
                                 </ul>
                             </div>
                             @else

@@ -40,7 +40,7 @@
 	  	<!-- Início tabela -->
 	  	<div class="row">
 	  		<div class="col-lg-9 col-md-9 col-sm-10 col-xs-10 mx-auto mt-5">
-			  	<table class="table col-12">
+			  	<table class="table table-responsive-sm col-12">
 				  <thead>
 				    <tr class="text-light">
 				      <th scope="col">Código</th>
@@ -61,10 +61,11 @@
 					      		<td>{{ $v->num_conta }}</td>
 					      		<td>R$ {{ number_format($v->saldo, 2, ',', '.') }}</td>
 					      		<td>
-					      			<a href="{{ route('editacliente', ['id' => $v->id]) }}" class="btn btn-info">Alterar</a>
-					      			<a href="#" data-bs-toggle="modal" data-bs-target="#exclusao" class="btn btn-danger">Excluir</a>
-					      			<a href="{{ route('transacoescliente', ['id' => $v->id]) }}" class="btn btn-light">Transações</a>
-					      			<a href="#" data-toggle="modal" data-target="#adicionacredito" class="btn btn-warning">Crédito</a>
+					      			<a href="{{ route('editacliente', ['id' => $v->id]) }}" class="btn btn-info btn-sm">Alterar</a>
+					      			<a href="#" data-bs-toggle="modal" data-bs-target="#exclusao" class="btn btn-danger btn-sm">Excluir</a>
+					      			<a href="{{ route('transacoescliente', ['id' => $v->id]) }}" class="btn btn-light btn-sm">Transações</a>
+					      			<a href="#" data-bs-toggle="modal" data-bs-target="#adicionacredito" class="btn btn-warning btn-sm" onclick="adicionaCreditoClienteId({{ $v->id }}")>Crédito</a>
+					      			<a href="{{ route('cadastrotransacaoauxiliar', ['id' => $v->id]) }}" class="btn btn-success btn-sm">Transferir</a>
 					      		</td>
 				      	    </tr>
 				        @endforeach
@@ -85,6 +86,7 @@
 		      </div>
 		      <div class="modal-body">
 		        Você realmente deseja excluir este cadastro? Essa ação é irreversível.
+		        {{ $v->id }}
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -101,13 +103,14 @@
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <h5 class="modal-title" id="exampleModalLabel">Adicionar crédito</h5>
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
 		      </div>
 		      <div class="modal-body">
 		      	<form id="form" action="{{ route('adicionarcreditocliente', ['id' => $v->id]) }}" method="POST">
 		      		@csrf
+		      		{{ $v->id }}
 		      		<input class="modalTextInput form-control" name="saldo" id="saldo" type="text" placeholder="1,99" />
 
 		      		<div class="modal-footer">
@@ -120,16 +123,28 @@
 		</div>
 		<!-- Fim Modal adiciona crédito -->
 
+		<!-- Scripts -->
 		<script type="text/javascript">
-   			$("#saldo").mask('#.##0,00', {
-   				reverse: true,
-				maxlength: false
-   			});
+   		$("#saldo").mask('#.##0,00', {
+		     reverse: true,
+		     translation: {
+		        '#': {
+		            pattern: /-|\d/,
+		            recursive: true
+		        }
+		     },
+		});
     	</script>
-
+    
 		<script>
 			function excluir(id){
 				location.href = route('excluicliente', {id : id});
 			}
+
+			function adicionaCreditoClienteId(id){
+				identificador = id;
+				return identificador;
+			}
 		</script>
+		<!-- Fim Scripts -->
 	@endsection
