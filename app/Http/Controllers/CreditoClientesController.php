@@ -5,11 +5,12 @@ use Illuminate\Http\Request;
 use App\Models\CreditoCliente;
 use App\Models\Cliente;
 use DB;
+use Redirect;
 
 class CreditoClientesController extends Controller
 {
     
-    function adicionaCreditoCliente(Request $request, $id){
+    function adicionaCreditoCliente($id, Request $request){
         $valor = $request->input('saldo');
         $valor = str_replace('.', '', $valor);
         $valor = str_replace(',', '.', $valor);
@@ -23,7 +24,7 @@ class CreditoClientesController extends Controller
         $this->atualizaSaldoCliente($creditocliente->id_cliente, $creditocliente->valor);
 
         session()->flash("Mensagem", "Crédito para o cliente {$creditocliente->cliente->nome} adicionado com sucesso.");
-        return redirect()->route('listaclientes'); 
+        return Redirect::back(); 
     }
 
     function atualizaSaldoCliente($id, $valor){

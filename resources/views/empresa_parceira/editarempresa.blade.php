@@ -9,6 +9,29 @@
 	@section('title') Editar empresa parceira @endsection
 
 	@section('nav&footer')
+
+	@if(Auth::user()->isAdmin())
+	<button href="#" data-toggle="modal" data-target="#adicionacredito" class="btn btn-warning">Adicionar crédito</button>
+	@endif
+
+		<!-- Início mensagem alterar -->
+		@if(session('Mensagem'))
+			<div class="row">
+				<div class="alert alert-success text-center py-3">
+					{{ session('Mensagem') }}
+				</div>
+			</div>
+		@endif
+
+		@if(session('Retorno'))
+			<div class="row">
+				<div class="alert alert-danger text-center py-3">
+					{{ session('Retorno') }}
+				</div>
+			</div>
+		@endif
+		<!-- Fim mensagem alterar -->
+
 	  	<!-- Início formulário -->
 	  	<div class="row">
 		  	<div class="col-lg-4 col-md-5 col-sm-8 col-xs-8 mx-auto mt-5 text-light">
@@ -47,6 +70,44 @@
 			</div>
 		</div>
 		<!-- Fim formulário -->
+
+		<!-- Modal adiciona crédito -->
+		<div class="modal fade" id="adicionacredito" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Adicionar crédito</h5>  
+				<button type="button" class="close" data-dismiss="modal" aria- label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+		      </div>
+		      <div class="modal-body">
+		      	<form id="form" action="{{ route('adicionarcreditoempresa', ['id' => $e->id]) }}" method="POST">
+		      		@csrf
+		      		<input class="modalTextInput form-control" name="saldo" id="saldo" type="text" placeholder="1,99" />
+
+		      		<div class="modal-footer">
+		            	<button type="submit" class="btn btn-warning">Salvar</button>
+		            </div>
+		         </form>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<!-- Fim Modal adiciona crédito -->
+
+		<!-- Scripts -->
+		<script type="text/javascript">
+   		$("#saldo").mask('#.##0,00', {
+		     reverse: true,
+		     translation: {
+		        '#': {
+		            pattern: /-|\d/,
+		            recursive: true
+		        }
+		     },
+		});
+    	</script>
 
 		<!-- Scripts -->
 		<script type="text/javascript">

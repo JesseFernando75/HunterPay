@@ -13,8 +13,7 @@ class StatusTransacoesController extends Controller
         $transacao = new StatusTransacao();
         $transacao->nome = $nome;
         $transacao->save();
-
-        session()->flash("Mensagem", "Novo status salvo com sucesso.");
-        return view('cadastrotransacao'); 
+        
+         return redirect()->back()->with("Mensagem", "Novo status salvo com sucesso.");  
     }
 }

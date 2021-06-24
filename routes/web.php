@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\EmpresasParceirasController;
 use App\Http\Controllers\CreditoClientesController;
+use App\Http\Controllers\CreditoEmpresasController;
 use App\Http\Controllers\StatusTransacoesController;
 use App\Http\Controllers\TransacoesController;
 
@@ -47,6 +48,14 @@ Route::post('/cadastro/cliente/adicionar', [ClientesController::class, 'cadastra
 //Fim Cliente
 
 Route::middleware('auth')->group(function(){
+    //Cliente
+    Route::get('cliente/listadetransacoes/{id}', [TransacoesController::class, 'listaTransacoesCliente'])->name('transacoesdecliente');
+    //Fim Cliente
+
+    //Empresa Parceira
+    Route::get('empresa/listadetransacoes/{id}', [TransacoesController::class, 'listaTransacoesEmpresa'])->name('transacoesdeempresa');
+    //Fim Empresa Parceira
+
     //Admin
     Route::middleware('is_admin')->group(function(){
 
@@ -66,19 +75,23 @@ Route::middleware('auth')->group(function(){
 
         Route::get('admin/empresa/editar/{id}', [EmpresasParceirasController::class, 'editaEmpresa'])->name('editaempresa');
 
-        Route::get('admin/cliente/excluir/{id}', [ClientesController::class, 'excluiCliente'])->name('excluicliente');
+        Route::post('admin/cliente/excluir', [ClientesController::class, 'excluiCliente'])->name('excluicliente');
 
-        Route::get('admin/empresa/excluir/{id}', [EmpresasParceirasController::class, 'excluiEmpresa'])->name('excluiempresa');
+        Route::post('admin/empresa/excluir', [EmpresasParceirasController::class, 'excluiEmpresa'])->name('excluiempresa');
 
         Route::post('admin/cliente/credito/{id}', [CreditoClientesController::class, 'adicionaCreditoCliente'])->name('adicionarcreditocliente');
 
-        Route::get('admin/cliente/listadetransacoes/{id}', [TransacoesController::class, 'listatransacoesCliente'])->name('transacoescliente');
+        Route::get('admin/cliente/listadetransacoes/{id}', [TransacoesController::class, 'listaTransacoesCliente'])->name('transacoescliente');
 
         Route::get('/admin/transacao/cadastro/{id}', [TransacoesController::class, 'mostraCadastroTransacao'])->name('cadastrotransacaoauxiliar');
 
         Route::post('admin/transacao/status/adicionar', [StatusTransacoesController::class, 'cadastrar'])->name('cadastrarstatustransacao');
 
         Route::post('admin/transacao/cadastrar/{id}', [TransacoesController::class, 'cadastraTransacao'])->name('cadastratransacao');
+
+        Route::post('admin/empresa/credito/{id}', [CreditoEmpresasController::class, 'adicionaCreditoEmpresa'])->name('adicionarcreditoempresa');
+
+        Route::get('admin/empresa/listadetransacoes/{id}', [TransacoesController::class, 'listaTransacoesEmpresa'])->name('transacoesempresa');
 
     });
     //Fim Admin

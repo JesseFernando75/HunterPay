@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\CreditoEmpresa;
 use App\Models\Transacao;
+use App\Models\User;
 
 class EmpresaParceira extends Model
 {
@@ -20,4 +21,9 @@ class EmpresaParceira extends Model
     function transacao(){
         return $this->hasMany(Transacao::class, 'id_empresa', 'id');
     }
+
+    function user(){
+        return $this->hasOne(User::class, 'id_empresa', 'id');
+    }
+
 }

@@ -62,21 +62,20 @@
 					      		<td>R$ {{ number_format($v->saldo, 2, ',', '.') }}</td>
 					      		<td>
 					      			<a href="{{ route('editacliente', ['id' => $v->id]) }}" class="btn btn-info btn-sm">Alterar</a>
-					      			<a href="#" data-bs-toggle="modal" data-bs-target="#exclusao" class="btn btn-danger btn-sm">Excluir</a>
+					      			<a href="#" class="btn btn-danger btn-sm" data-id="{{ $v->id }}"onclick="$('#dataid').val($(this).data('id')); $('#exclusao').modal('show');">Excluir</a>
 					      			<a href="{{ route('transacoescliente', ['id' => $v->id]) }}" class="btn btn-light btn-sm">Transações</a>
-					      			<a href="#" data-bs-toggle="modal" data-bs-target="#adicionacredito" class="btn btn-warning btn-sm" onclick="adicionaCreditoClienteId({{ $v->id }}")>Crédito</a>
 					      			<a href="{{ route('cadastrotransacaoauxiliar', ['id' => $v->id]) }}" class="btn btn-success btn-sm">Transferir</a>
 					      		</td>
 				      	    </tr>
 				        @endforeach
 				  </tbody>
 				</table>
-				<a href="#" class="btn mb-5 btn-light">Novo cliente</a>
+				<a href="{{ route('cadastrocliente') }}" class="btn mb-5 btn-light">Novo cliente</a>
 			</div>
 		</div>
 		<!-- Fim tabela -->	
 
-		<!-- Modal de confirmação de exclusão -->
+		<!-- Modal de confirmação -->
 		<div class="modal fade" id="exclusao" tabindex="-1" aria-hidden="true">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
@@ -86,42 +85,19 @@
 		      </div>
 		      <div class="modal-body">
 		        Você realmente deseja excluir este cadastro? Essa ação é irreversível.
-		        {{ $v->id }}
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-		        <button type="button" onclick="excluir({{ $v->id }})" class="btn btn-danger">Excluir</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>
-		<!-- Fim modal de confirmação de exclusão -->
-
-		<!-- Modal adiciona crédito -->
-		<div class="modal fade" id="adicionacredito" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		  <div class="modal-dialog" role="document">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h5 class="modal-title" id="exampleModalLabel">Adicionar crédito</h5>
-		        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-		          <span aria-hidden="true">&times;</span>
-		        </button>
-		      </div>
-		      <div class="modal-body">
-		      	<form id="form" action="{{ route('adicionarcreditocliente', ['id' => $v->id]) }}" method="POST">
+		      	<form action="{{ route('excluicliente') }}" method="POST">
 		      		@csrf
-		      		{{ $v->id }}
-		      		<input class="modalTextInput form-control" name="saldo" id="saldo" type="text" placeholder="1,99" />
-
-		      		<div class="modal-footer">
-		            	<button type="submit" class="btn btn-warning">Salvar</button>
-		            </div>
-		         </form>
+		      		<input type="hidden" class="form-control" name="id_cliente" id="dataid" value="" />
+			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+			        <button type="submit" class="btn btn-danger">Excluir</button>
+			    </form>
 		      </div>
 		    </div>
 		  </div>
 		</div>
-		<!-- Fim Modal adiciona crédito -->
+		<!-- Fim modal de confirmação -->
 
 		<!-- Scripts -->
 		<script type="text/javascript">
@@ -135,15 +111,18 @@
 		     },
 		});
     	</script>
-    
+
+    	<script>
+    		$('.delete').on('click', function(){
+		      var id_cliente = $(this).data('id');
+		      $('a.delete-yes').attr('href', 'excluicliente' +id);
+		      $('#exclusao').modal('show');
+		}	);    
+		</script>
+
 		<script>
 			function excluir(id){
 				location.href = route('excluicliente', {id : id});
-			}
-
-			function adicionaCreditoClienteId(id){
-				identificador = id;
-				return identificador;
 			}
 		</script>
 		<!-- Fim Scripts -->

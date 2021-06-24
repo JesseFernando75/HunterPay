@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\EmpresaParceira;
+use App\Models\User;
 
 class EmpresasParceirasController extends Controller
 {
@@ -21,11 +22,12 @@ class EmpresasParceirasController extends Controller
         $e1->saldo = 0;
     
         $e1->save();
-        return view('empresa_parceira/cadastroempresalogin', ['empresa' => $e1]);
+        return view('empresa_parceira/cadastroempresalogin', ['id_empresa' => $e1->id]);
     }
 
     function obtemListaEmpresas(){
-        $empresa = EmpresaParceira::all();
+        $empresa = EmpresaParceira::select()
+        ->orderBy('razao_social', 'asc')->get();
 
         if(sizeof($empresa) == 0){
             session()->flash('Retorno', "Não há nenhuma empresa parceira cadastrada no momento.");
@@ -54,10 +56,13 @@ class EmpresasParceirasController extends Controller
         return redirect()->route('listaempresas'); 
     }
 
-    function excluiEmpresa($id){
-        $empresa = EmpresaParceira::findOrFail($id);
+    function excluiEmpresa(Request $request){
+        $id_empresa = $request->input('id_empresa');
+        $empresa = EmpresaParceira::findOrFail($id_empresa);
+        $user = User::findOrFail($empresa->user->id);
 
         $empresa->delete();
+        $user->delete();
         session()->flash("Mensagem", "Excluído com sucesso.");
         return redirect()->route('listaempresas'); 
     }

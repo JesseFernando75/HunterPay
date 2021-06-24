@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Categoria;
+use App\Models\Cliente;
+use App\Models\EmpresaParceira;
 
 class User extends Authenticatable
 {
@@ -50,6 +52,22 @@ class User extends Authenticatable
 
     function isAdmin(){
         return $this->categoria->id == 1;
+    }
+
+    function isCliente(){
+        return $this->categoria->id == 2;
+    }
+
+    function isEmpresa(){
+        return $this->categoria->id == 3;
+    }
+
+   function cliente(){
+        return $this->hasOne(Cliente::class, 'id_cliente', 'id');
+    }
+
+    function empresa(){
+        return $this->hasOne(EmpresaParceira::class, 'id_empresa', 'id');
     }
 
 }
