@@ -34,7 +34,7 @@
 	  	<!-- Início tabela -->
 	  	<div class="row">
 	  		<div class="col-lg-10 col-md-11 col-sm-10 col-xs-10 mx-auto mt-5">
-			  	<table class="table table-responsive col-12">
+			  	<table class="table table-responsive-sm col-12">
 				  <thead>
 				    <tr class="text-light">
 				      <th scope="col">Código</th>
@@ -58,15 +58,14 @@
 					      		<td>R$ {{ $e->saldo }}</td>
 					      		<td>
 					      			<a href="{{ route('editaempresa', ['id' => $e->id]) }}" class="btn btn-info btn-sm">Alterar</a>
-					      			<a href="#" data-bs-toggle="modal" data-bs-target="#exclusao" class="btn btn-danger btn-sm">Excluir</a>
-					      			<a href="#" class="btn btn-light btn-sm">Transações</a>
-					      			<a href="#" class="btn btn-warning btn-sm">Crédito</a>
+					      			<a href="#" class="btn btn-danger btn-sm" data-id="{{ $e->id }}"onclick="$('#dataid').val($(this).data('id')); $('#exclusao').modal('show');">Excluir</a>
+					      			<a href="{{ route('transacoesempresa', ['id' => $e->id]) }}" class="btn btn-light btn-sm">Transações</a>
 					      		</td>
 				      	    </tr>
 				        @endforeach
 				  </tbody>
 				</table>
-				<a href="#" class="btn mb-5 btn-light">Nova empresa parceira</a>
+				<a href="{{ route('cadastroempresa') }}" class="btn mb-5 btn-light">Nova empresa parceira</a>
 			</div>
 		</div>
 		<!-- Fim tabela -->	
@@ -83,17 +82,17 @@
 		        Você realmente deseja excluir este cadastro? Essa ação é irreversível.
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-		        <button type="button" onclick="excluir({{ $e->id }})" class="btn btn-danger">Excluir</button>
+		      	<form action="{{ route('excluiempresa') }}" method="POST">
+		      		@csrf
+		      		<input type="hidden" class="form-control" name="id_empresa" id="dataid" value="" />
+			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+			        <button type="submit" class="btn btn-danger">Excluir</button>
+			    </form>
 		      </div>
 		    </div>
 		  </div>
 		</div>
 		<!-- Fim modal de confirmação -->
 
-		<script>
-			function excluir(id){
-				location.href = route('excluiempresa', {id : id});
-			}
-		</script>
+		
 	@endsection

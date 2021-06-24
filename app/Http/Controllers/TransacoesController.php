@@ -7,6 +7,8 @@ use App\Models\Transacao;
 use App\Models\EmpresaParceira;
 use App\Models\Cliente;
 use App\Models\CreditoCliente;
+use App\Models\CreditoEmpresa;
+use Auth;
 
 class TransacoesController extends Controller
 {
@@ -63,6 +65,23 @@ class TransacoesController extends Controller
         }
     }
 
+    function listaTransacoesCliente($id){
+        if(Auth::user()->isAdmin() || Auth::user()->id_cliente == $id){
+            $cliente = Cliente::find($id);
+            $creditoscliente = CreditoCliente::where('id_cliente', $cliente->id)
+            ->orderBy('data', 'desc')
+            ->get();
+            $transacoescliente = Transacao::where('id_cliente', $cliente->id)
+            ->orderBy('data', 'desc')
+            ->get();
+ 
+            return view('cliente/listatransacoescliente', ['cliente' => $cliente,
+                                                           'creditoscliente' => $creditoscliente,
+                                                           'transacoescliente' => $transacoescliente]);
+        } else{
+            return view('admin/acessonegado');
+        }
+    }
 
      function obtemListaEmpresasTransacao(){
         $empresa = EmpresaParceira::all();
@@ -74,22 +93,22 @@ class TransacoesController extends Controller
         return $empresa;
     }
 
-    function listaTransacoesCliente($id){
-        $cliente = Cliente::find($id);
-        $creditoscliente = CreditoCliente::where('id_cliente', $cliente->id)
-        ->orderBy('data', 'desc')
-        ->get();
-        $transacoescliente = Transacao::where('id_cliente', $cliente->id)
-        ->orderBy('data', 'desc')
-        ->get();
+    function listaTransacoesEmpresa($id){
+        if(Auth::user()->isAdmin() || Auth::user()->id_empresa == $id){
+            $empresa = EmpresaParceira::find($id);
+            $creditosempresa = CreditoEmpresa::where('id_empresa', $empresa->id)
+            ->orderBy('data', 'desc')
+            ->get();
+            $transacoesempresa = Transacao::where('id_empresa', $empresa->id)
+            ->orderBy('data', 'desc')
+            ->get();
 
-        if(sizeof($creditoscliente) == 0 && sizeof($transacoescliente) == 0){
-            session()->flash("Retorno", "O cliente $cliente->nome não possuí nenhum registro de crédito.");
-            return redirect()->route('listaclientes');
-        } else{
-            return view('cliente/listatransacoescliente', ['creditoscliente' => $creditoscliente,
-                                                           'transacoescliente' => $transacoescliente]);
+            return view('empresa_parceira/listatransacoesempresa', ['empresa' => $empresa,
+                                                                    'creditosempresa' => $creditosempresa,
+                                                                    'transacoesempresa' => $transacoesempresa]);
+            } else{
+            return view('admin/acessonegado');
         }
     }
-
+    
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cliente;
+use App\Models\User;
 
 class ClientesController extends Controller
 {
@@ -21,11 +22,12 @@ class ClientesController extends Controller
         $c1->saldo = 0;
     
         $c1->save();
-        return view('cliente/cadastroclientelogin', ['cliente' => $c1->id]);
+        return view('cliente/cadastroclientelogin', ['id_cliente' => $c1->id]);
     }
 
     function obtemListaClientes(){
-        $cliente = Cliente::all();
+        $cliente = Cliente::select()
+        ->orderBy('nome', 'asc')->get();
 
         if(sizeof($cliente) == 0){
             session()->flash("Retorno", "Não há nenhum cliente cadastrado no momento.");
@@ -53,12 +55,15 @@ class ClientesController extends Controller
         return redirect()->route('listaclientes'); 
     }
 
-    function excluiCliente($id){
-        $cliente = Cliente::findOrFail($id);
+    function excluiCliente(Request $request){
+        $id_cliente = $request->input('id_cliente');
+        $cliente = Cliente::findOrFail($id_cliente);
+        $user = User::findOrFail($cliente->user->id);
 
         $cliente->delete();
+        $user->delete();
         session()->flash("Mensagem", "Excluído com sucesso.");
-        return redirect()->route('listaclientes'); 
+        return redirect()->route('listaclientes');  
     }
 
 }

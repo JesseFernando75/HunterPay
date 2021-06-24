@@ -92,13 +92,18 @@
                                 <ul class="navbar-nav mr-auto">
                                     <a class="nav-link text-light" href="{{ route('listaclientes') }}">Clientes</a>
                                     <a class="nav-link text-light" href="{{ route('listaempresas') }}">Empresas Parceiras</a>
-                                    <a class="nav-link text-light" href="#">Transações</a>
                                 </ul>
                             </div>
-                            @else
+                            @elseif (Auth::user()->isCliente())
                                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                     <ul class="navbar-nav mr-auto">
-                                        <a class="nav-link text-light" href="#">Transações</a>
+                                        <a class="nav-link text-light" href="{{route('transacoesdecliente', ['id' => Auth::user()->id_cliente ]) }}">Transações</a>
+                                    </ul>
+                                </div>
+                            @elseif (Auth::user()->isEmpresa())
+                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                    <ul class="navbar-nav mr-auto">
+                                        <a class="nav-link text-light" href="{{route('transacoesdeempresa', ['id' => Auth::user()->id_empresa ]) }}">Transações</a>
                                     </ul>
                                 </div>
                             @endif

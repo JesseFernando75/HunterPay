@@ -19,9 +19,9 @@
                         @enderror
                     </div>
 
-                    <input type="hidden" name="id_cliente" class="form-control" value="{{ $empresa->id }}">
-                    <input type="hidden" name="id_categoria" class="form-control" value="3">
-                    <input type="hidden" name="password" class="form-control" value="{{ $empresa->token }}">
+                    <input type="hidden" name="id_empresa" class="form-control" value="{{ $id_empresa }}" readonly>
+                    <input type="hidden" name="id_cliente" class="form-control" value="0" readonly>
+                    <input type="hidden" name="id_categoria" class="form-control" value="3" readonly>
 
                     <div class="col-md-12 mb-3">
                        <label class="form-label">E-mail</label>
