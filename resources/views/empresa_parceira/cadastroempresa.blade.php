@@ -13,7 +13,7 @@
 	  	<div class="row">
 	  		<div class="col-lg-4 col-md-5 col-sm-8 col-xs-8 mx-auto mt-5 text-light">
 
-				<form class="row g-3" action="{{ route('cadastrarempresa') }}" method="POST">
+				<form class="row g-3" action="{{ route('cadastrarempresa', ['id' => $id_user]) }}" method="POST">
 				  @csrf
 				  <div class="col-md-12 mb-3">
 				    <label class="form-label">Informe a razão social da empresa</label>

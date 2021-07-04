@@ -8,12 +8,17 @@ use App\Models\User;
 
 class EmpresasParceirasController extends Controller
 {
-    function cadastrar(Request $request){
+    function cadastrar(Request $request, $id){
         $razao_social = $request->input('razao_social');
         $cnpj = $request->input('cnpj');
+        $cnpj = str_replace('.', '', $cnpj);
+        $cnpj = str_replace('/', '', $cnpj);
+        $cnpj = str_replace('-', '', $cnpj);
+        $cnpj = floatval($cnpj);
         $telefone = $request->input('telefone');
 
         $e1 = new EmpresaParceira();
+        $e1->id_user = $id;
         $e1->razao_social = $razao_social;
         $e1->cnpj = $cnpj;
         $e1->telefone = $telefone;
@@ -22,7 +27,12 @@ class EmpresasParceirasController extends Controller
         $e1->saldo = 0;
     
         $e1->save();
-        return view('empresa_parceira/cadastroempresalogin', ['id_empresa' => $e1->id]);
+        session()->flash("Mensagem", "Empresa Parceira cadastrado com sucesso.");
+        return redirect()->route('login');
+    }
+
+    function obtemCadastroEmpresa($id){
+        return view('empresa_parceira/cadastroempresa', ['id_user' => $id]);
     }
 
     function obtemListaEmpresas(){
@@ -47,6 +57,10 @@ class EmpresasParceirasController extends Controller
 
         $empresa->razao_social = $request->input('razao_social');
         $empresa->cnpj = $request->input('cnpj');
+        $empresa->cnpj = str_replace('.', '', $empresa->cnpj);
+        $empresa->cnpj = str_replace('/', '', $empresa->cnpj);
+        $empresa->cnpj = str_replace('-', '', $empresa->cnpj);
+        $empresa->cnpj = floatval($empresa->cnpj);
         $empresa->telefone = $request->input('telefone');
         $empresa->token = $request->input('token');
         $empresa->num_conta = $request->input('num_conta');

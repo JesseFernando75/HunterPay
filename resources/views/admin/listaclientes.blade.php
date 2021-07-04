@@ -57,7 +57,7 @@
 				      		<tr class="text-light">
 				      			<td>{{ $v->id }}</td>
 					      		<td>{{ $v->nome }}</td>
-					      		<td>{{ $v->cpf }}</td>
+					      		<td class="cpf">{{ $v->cpf }}</td>
 					      		<td>{{ $v->num_conta }}</td>
 					      		<td>R$ {{ number_format($v->saldo, 2, ',', '.') }}</td>
 					      		<td>
@@ -70,7 +70,6 @@
 				        @endforeach
 				  </tbody>
 				</table>
-				<a href="{{ route('cadastrocliente') }}" class="btn mb-5 btn-light">Novo cliente</a>
 			</div>
 		</div>
 		<!-- Fim tabela -->	
@@ -100,16 +99,8 @@
 		<!-- Fim modal de confirmação -->
 
 		<!-- Scripts -->
-		<script type="text/javascript">
-   		$("#saldo").mask('#.##0,00', {
-		     reverse: true,
-		     translation: {
-		        '#': {
-		            pattern: /-|\d/,
-		            recursive: true
-		        }
-		     },
-		});
+    	<script type="text/javascript">
+   			$(".cpf").mask("000.000.000-00");
     	</script>
 
     	<script>

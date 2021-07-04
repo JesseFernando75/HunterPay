@@ -16,7 +16,8 @@ class CreateTableCliente extends Migration
         Schema::create('cliente', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $table->string('cpf')->unique();
+            $table->foreignId('id_user')->constantained('users')->cascadeOnDelete();
+            $table->double('cpf', 11)->unique();
             $table->string('telefone');
             $table->integer('num_conta');
             $table->decimal('saldo', $precision = 15, $scale = 2);
@@ -32,5 +33,7 @@ class CreateTableCliente extends Migration
     public function down()
     {
         Schema::dropIfExists('cliente');
+        $table->dropForeign(['id_users']);
+        $table->dropColumn('id_users');
     }
 }

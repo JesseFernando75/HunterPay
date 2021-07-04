@@ -97,13 +97,13 @@
                             @elseif (Auth::user()->isCliente())
                                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                     <ul class="navbar-nav mr-auto">
-                                        <a class="nav-link text-light" href="{{route('transacoesdecliente', ['id' => Auth::user()->id_cliente ]) }}">Transações</a>
+                                        <a class="nav-link text-light" href="{{route('transacoesdecliente', ['id' => Auth::user()->cliente->id ]) }}">Transações</a>
                                     </ul>
                                 </div>
                             @elseif (Auth::user()->isEmpresa())
                                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                     <ul class="navbar-nav mr-auto">
-                                        <a class="nav-link text-light" href="{{route('transacoesdeempresa', ['id' => Auth::user()->id_empresa ]) }}">Transações</a>
+                                        <a class="nav-link text-light" href="{{route('transacoesdeempresa', ['id' => Auth::user()->empresa->id ]) }}">Transações</a>
                                     </ul>
                                 </div>
                             @endif

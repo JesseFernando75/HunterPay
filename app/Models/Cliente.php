@@ -22,8 +22,8 @@ class Cliente extends Model
         return $this->hasMany(Transacao::class, 'id_cliente', 'id');
     }
 
-    function user(){
-        return $this->hasOne(User::class, 'id_cliente', 'id');
+     function user(){
+        return $this->belongsTo(User::class, 'id_user', 'id');
     }
-    
+
 }

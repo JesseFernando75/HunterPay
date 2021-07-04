@@ -56,8 +56,6 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'id_cliente' => ['required', 'integer'],
-            'id_empresa' => ['required', 'integer'],
             'id_categoria' => ['required', 'integer'],
         ]);
     }
@@ -69,16 +67,17 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
 
+    protected $id_user;
+
     protected function create(array $data){
         $user = new User();
         $user->name = $data['name'];
         $user->email = $data['email'];
-        $user->id_cliente = $data['id_cliente'];
-        $user->id_empresa = $data['id_empresa'];
         $user->id_categoria = $data['id_categoria'];
         $user->password = Hash::make($data['password']);
         $user->save();
 
+        $this->id_user = $user->id;
         return $user;
     }
 
@@ -92,8 +91,13 @@ class RegisterController extends Controller
     }
 
     protected function redirectTo(){
-        session()->flash('Mensagem', "Cadastro com sucesso.");
-        return route('login');
+        $user = User::findOrFail($this->id_user);
+
+        if($user->isCliente()){
+            return route('cadastrocliente', ['id_user' => $this->id_user]);
+        } else if ($user->isEmpresa()) {
+            return route('cadastroempresa', ['id_user' => $this->id_user]);
+        }
     }
 
 }

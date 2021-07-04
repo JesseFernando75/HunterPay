@@ -23,7 +23,7 @@ class EmpresaParceira extends Model
     }
 
     function user(){
-        return $this->hasOne(User::class, 'id_empresa', 'id');
+        return $this->belongsTo(User::class, 'id_user', 'id');
     }
 
 }

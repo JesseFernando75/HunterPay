@@ -15,8 +15,6 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_cliente')->constantained('cliente')->cascadeOnDelete();
-            $table->foreignId('id_empresa')->constantained('empresa_parceira')->cascadeOnDelete();
             $table->foreignId('id_categoria')->constantained('categoria')->cascadeOnDelete();
             $table->string('name');
             $table->string('email')->unique();
@@ -35,10 +33,6 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
-        $table->dropForeign(['id_cliente']);
-        $table->dropColumn('id_cliente');
-        $table->dropForeign(['id_empresa']);
-        $table->dropColumn('id_empresa');
         $table->dropForeign(['id_categoria']);
         $table->dropColumn('id_categoria');
     }

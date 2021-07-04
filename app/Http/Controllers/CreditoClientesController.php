@@ -34,7 +34,7 @@ class CreditoClientesController extends Controller
     }
 
     function listaCreditosCliente($id){
-        $cliente = Cliente::find($id);
+        $cliente = Cliente::findfindOrFail($id);
         $creditoscliente = CreditoCliente::where('id_cliente', $cliente->id)
         ->orderBy('data', 'desc')
         ->get();

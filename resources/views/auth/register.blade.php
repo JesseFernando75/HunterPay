@@ -31,11 +31,11 @@
                     <br>
 
                     <div class="d-grid gap-1 mb-4 mt-4">
-                        <a class="btn btn-dark btn-lg" href="{{ route('cadastrocliente') }}" role="button">Para mim</a>
+                        <a class="btn btn-dark btn-lg" href="{{ route('cadastroclientelogin') }}" role="button">Para mim</a>
                       </div>
 
                       <div class="d-grid gap-1 mb-4">
-                         <a class="btn btn-outline-dark btn-lg" href="{{ route('cadastroempresa') }}" role="button">Para minha empresa</a>
+                         <a class="btn btn-outline-dark btn-lg" href="{{ route('cadastroempresalogin') }}" role="button">Para minha empresa</a>
                       </div>
 
                 </div>
