@@ -27,14 +27,18 @@
 		    	@if($tc->id_status == 1)
 		      		<h6 class="text-success">{{ $tc->status->nome }}</h6>
 		      	@elseif($tc->id_status == 2)
-		      		<h6 class="mb-1 alert text-danger">{{ $tc->status->nome }}</h6>
+		      		<h6 class="text-danger">{{ $tc->status->nome }}</h6>
 		      	@else
-		      		<h6 class="mb-1 text-warning">{{ $tc->status->nome }}</h6>
+		      		<h6 class="text-warning">{{ $tc->status->nome }}</h6>
 		      	@endif
 		      <small>{{ $tc->data }}</small>
 		    </div>
 		    <p class="mb-1">Você fez uma transação de R$ {{ number_format($tc->valor, 2, ',', '.') }}</p>
-		    <small>{{ $tc->empresa->razao_social }}</small>
+		   		@if($tc->empresa)
+		      		<small>{{ $tc->empresa->razao_social }}</small>
+		      	@else
+		    		<small>Nome da empresa não encontrado</small>
+		    	@endif
 		  </div>
 		  @endforeach
 		</div>
@@ -44,18 +48,17 @@
 	<!-- Início lista de créditos -->
 	<p class="text-center text-light font-weight-bold fs-4 mt-4">Créditos recebidos</p>
 	 @if(sizeof($creditoscliente) == 0)
-	  <p class="text-center text-danger fs-6 mb-5">Nenhum crédito recebido até o momento.</p>
+	  <p class="text-center text-danger fs-6">Nenhum crédito recebido até o momento.</p>
 	 @else
 		<div class="col-8 list-group mx-auto mt-1 mb-5">
-		  @foreach($creditoscliente as $cv)
+		 @foreach($creditoscliente as $cv)
 		  <div class="list-group-item text-light" style="background-color: #616161;">
-		      	<h6 class="mb-1 text-success">Recebido</h6>
 		    <div class="d-flex w-100 justify-content-between">
-		      <h5 class="mb-1"></h5>
+		      	<h6 class="text-success">Recebido</h6>
 		      <small>{{ $cv->data }}</small>
 		    </div>
 		    <p class="mb-1">Você recebeu créditos de R$ {{ number_format($cv->valor, 2, ',', '.') }}</p>
-		    <small>Admin</small>
+		    	<small>Admin</small>
 		  </div>
 		  @endforeach
 		</div>

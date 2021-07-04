@@ -32,19 +32,23 @@ Route::get('/login', function() {
 //Fim Login
 
 //Empresa parceira
-Route::get('/cadastro/empresa', function() {
-        return view('empresa_parceira/cadastroempresa');
-    })->name('cadastroempresa');
+Route::get('/cadastro/empresa/login', function() {
+        return view('empresa_parceira/cadastroempresalogin');
+    })->name('cadastroempresalogin');
 
-Route::post('/cadastro/empresa/adicionar', [EmpresasParceirasController::class, 'cadastrar'])->name('cadastrarempresa');
+Route::get('/cadastro/empresa/{id_user}', [EmpresasParceirasController::class, 'obtemCadastroEmpresa'])->name('cadastroempresa');
+
+Route::post('/cadastro/empresa/adicionar/{id}', [EmpresasParceirasController::class, 'cadastrar'])->name('cadastrarempresa');
 //Fim Empresa parceira
 
 //Cliente
-Route::get('/cadastro/cliente', function() {
-        return view('cliente/cadastrocliente');
-    })->name('cadastrocliente');
+Route::get('/cadastro/cliente/login', function() {
+        return view('cliente/cadastroclientelogin');
+    })->name('cadastroclientelogin');
 
-Route::post('/cadastro/cliente/adicionar', [ClientesController::class, 'cadastrar'])->name('cadastrarcliente');
+Route::get('/cadastro/cliente/{id_user}', [ClientesController::class, 'obtemCadastroCliente'])->name('cadastrocliente');
+
+Route::post('/cadastro/cliente/adicionar/{id}', [ClientesController::class, 'cadastrar'])->name('cadastrarcliente');
 //Fim Cliente
 
 Route::middleware('auth')->group(function(){

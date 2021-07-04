@@ -19,9 +19,7 @@
                         @enderror
                     </div>
 
-                    <input type="hidden" name="id_cliente" class="form-control" value="{{ $id_cliente }}" readonly>
-                    <input type="hidden" name="id_empresa" class="form-control" value="0" readonly>
-                    <input type="hidden" name="id_categoria" class="form-control" value="2" readonly>
+                    <input type="hidden" class="form-control" name="id_categoria" value="2" readonly="readonly">
 
                     <div class="col-md-12 mb-3">
                        <label class="form-label">E-mail</label>
@@ -57,7 +55,7 @@
                     </div>
 
                     <div class="col-md-12 d-grid gap-1 mb-5">
-                        <button class="btn btn-light" type="submit">Salvar</button>
+                        <button class="btn btn-light" type="submit">Avançar...</button>
                     </div>
 
                 </form> 

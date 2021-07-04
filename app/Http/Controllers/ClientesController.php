@@ -9,12 +9,16 @@ use App\Models\User;
 class ClientesController extends Controller
 {
 
-    function cadastrar(Request $request){
+    function cadastrar(Request $request, $id){
         $nome = $request->input('nome');
         $cpf = $request->input('cpf');
+        $cpf = str_replace('.', '', $cpf);
+        $cpf = str_replace('-', '', $cpf);
+        $cpf = floatval($cpf);
         $telefone = $request->input('telefone');
 
         $c1 = new Cliente();
+        $c1->id_user = $id;
         $c1->nome = $nome;
         $c1->cpf = $cpf;
         $c1->telefone = $telefone;
@@ -22,7 +26,12 @@ class ClientesController extends Controller
         $c1->saldo = 0;
     
         $c1->save();
-        return view('cliente/cadastroclientelogin', ['id_cliente' => $c1->id]);
+        session()->flash("Mensagem", "Cliente cadastrado com sucesso.");
+        return redirect()->route('login');
+    }
+
+    function obtemCadastroCliente($id){
+        return view('cliente/cadastrocliente', ['id_user' => $id]);
     }
 
     function obtemListaClientes(){
@@ -47,6 +56,9 @@ class ClientesController extends Controller
 
         $cliente->nome = $request->input('nome');
         $cliente->cpf = $request->input('cpf');
+        $cliente->cpf = str_replace('.', '', $cliente->cpf);
+        $cliente->cpf = str_replace('-', '', $cliente->cpf);
+        $cliente->cpf = floatval($cliente->cpf);
         $cliente->telefone = $request->input('telefone');
         $cliente->num_conta = $request->input('num_conta');
 

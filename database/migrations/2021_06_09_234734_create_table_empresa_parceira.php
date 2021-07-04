@@ -16,7 +16,8 @@ class CreateTableEmpresaParceira extends Migration
         Schema::create('empresa_parceira', function (Blueprint $table) {
             $table->id();
             $table->string('razao_social');
-            $table->string('cnpj')->unique();
+            $table->foreignId('id_user')->constantained('users')->cascadeOnDelete();
+            $table->double('cnpj', 14)->unique();
             $table->string('telefone');
             $table->string('token');
             $table->integer('num_conta');
@@ -33,5 +34,7 @@ class CreateTableEmpresaParceira extends Migration
     public function down()
     {
         Schema::dropIfExists('empresa_parceira');
+        $table->dropForeign(['id_user']);
+        $table->dropColumn('id_user');
     }
 }

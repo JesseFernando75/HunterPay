@@ -62,12 +62,12 @@ class User extends Authenticatable
         return $this->categoria->id == 3;
     }
 
-   function cliente(){
-        return $this->hasOne(Cliente::class, 'id_cliente', 'id');
+    function cliente(){
+        return $this->hasOne(Cliente::class, 'id_user', 'id');
     }
 
     function empresa(){
-        return $this->hasOne(EmpresaParceira::class, 'id_empresa', 'id');
+        return $this->hasOne(EmpresaParceira::class, 'id_user', 'id');
     }
 
 }

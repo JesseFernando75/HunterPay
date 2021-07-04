@@ -1,5 +1,11 @@
 @extends('layouts.template')
 
+	@section('scripts')
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+	@endsection
+
 	@section('title') Lista de empresas @endsection
 
 	@routes
@@ -52,10 +58,10 @@
 				      		<tr class="text-light">
 				      			<td>{{ $e->id }}</td>
 					      		<td>{{ $e->razao_social }}</td>
-					      		<td>{{ $e->cnpj }}</td>
+					      		<td class="cnpj">{{ $e->cnpj }}</td>
 					      		<td>{{ $e->token }}</td>
 					      		<td>{{ $e->num_conta }}</td>
-					      		<td>R$ {{ $e->saldo }}</td>
+					      		<td>R$ {{ number_format($e->saldo, 2, ',', '.') }}</td>
 					      		<td>
 					      			<a href="{{ route('editaempresa', ['id' => $e->id]) }}" class="btn btn-info btn-sm">Alterar</a>
 					      			<a href="#" class="btn btn-danger btn-sm" data-id="{{ $e->id }}"onclick="$('#dataid').val($(this).data('id')); $('#exclusao').modal('show');">Excluir</a>
@@ -65,7 +71,6 @@
 				        @endforeach
 				  </tbody>
 				</table>
-				<a href="{{ route('cadastroempresa') }}" class="btn mb-5 btn-light">Nova empresa parceira</a>
 			</div>
 		</div>
 		<!-- Fim tabela -->	
@@ -94,5 +99,24 @@
 		</div>
 		<!-- Fim modal de confirmação -->
 
-		
+		<!-- Scripts -->
+		<script type="text/javascript">
+   			$(".cnpj").mask("00.000.000/0000-00");
+    	</script>
+
+		<script>
+    		$('.delete').on('click', function(){
+		      var id_empresa = $(this).data('id');
+		      $('a.delete-yes').attr('href', 'excluiempresa' +id);
+		      $('#exclusao').modal('show');
+		}	);    
+		</script>
+
+		<script>
+			function excluir(id){
+				location.href = route('excluiempresa', {id : id});
+			}
+		</script>
+		<!-- Fim Scripts -->
+
 	@endsection

@@ -66,14 +66,12 @@ class TransacoesController extends Controller
     }
 
     function listaTransacoesCliente($id){
-        if(Auth::user()->isAdmin() || Auth::user()->id_cliente == $id){
-            $cliente = Cliente::find($id);
+        if(Auth::user()->isAdmin() || Auth::user()->cliente->id == $id){
+            $cliente = Cliente::findOrFail($id);
             $creditoscliente = CreditoCliente::where('id_cliente', $cliente->id)
-            ->orderBy('data', 'desc')
-            ->get();
+            ->orderBy('data', 'desc')->get();
             $transacoescliente = Transacao::where('id_cliente', $cliente->id)
-            ->orderBy('data', 'desc')
-            ->get();
+            ->orderBy('data', 'desc')->get();
  
             return view('cliente/listatransacoescliente', ['cliente' => $cliente,
                                                            'creditoscliente' => $creditoscliente,
@@ -87,21 +85,18 @@ class TransacoesController extends Controller
         $empresa = EmpresaParceira::all();
 
         $empresa = EmpresaParceira::select('id', 'razao_social')
-        ->orderBy('razao_social', 'asc')
-        ->get();
+        ->orderBy('razao_social', 'asc')->get();
 
         return $empresa;
     }
 
     function listaTransacoesEmpresa($id){
-        if(Auth::user()->isAdmin() || Auth::user()->id_empresa == $id){
+        if(Auth::user()->isAdmin() || Auth::user()->empresa->id == $id){
             $empresa = EmpresaParceira::find($id);
             $creditosempresa = CreditoEmpresa::where('id_empresa', $empresa->id)
-            ->orderBy('data', 'desc')
-            ->get();
+            ->orderBy('data', 'desc')->get();
             $transacoesempresa = Transacao::where('id_empresa', $empresa->id)
-            ->orderBy('data', 'desc')
-            ->get();
+            ->orderBy('data', 'desc')->get();
 
             return view('empresa_parceira/listatransacoesempresa', ['empresa' => $empresa,
                                                                     'creditosempresa' => $creditosempresa,
