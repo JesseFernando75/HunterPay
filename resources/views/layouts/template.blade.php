@@ -10,6 +10,17 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- Fim Styles -->
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BJMG9ZL5TP"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-BJMG9ZL5TP');
+    </script>
+    <!-- Global site tag -->
+
 	<!-- Scripts -->
     @yield('scripts')
     <script src="{{ asset('js/app.js') }}" defer></script>
