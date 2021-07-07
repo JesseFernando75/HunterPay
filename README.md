@@ -2,7 +2,7 @@ Orientações para uso da API de consulta.
 
 ------------
 
-Realizar transação. Método: POST - LINK: ...//api/transacoes
+Realizar transação. Método: POST - LINK: .../api/transacoes
    
     {
         "token": "4637a1c1864e32b6",
@@ -10,7 +10,11 @@ Realizar transação. Método: POST - LINK: ...//api/transacoes
         "valor": 40.00
     }
     
+------------
+
 Consultar transações de empresa parceira. Método: GET - LINK: ...//api/transacoes/{token}
+
+------------
 
 Cadastrar empresa parceira. Método: POST - LINK: .../api/empresas
 
@@ -20,9 +24,13 @@ Cadastrar empresa parceira. Método: POST - LINK: .../api/empresas
         "telefone": "(64) 6586-5565"
     }
     
+------------
+
 Consultar informações de empresa parceira. Método: GET - LINK: .../api/empresas/{token}
 
-Atualizasr dados de empresa parceira. Método: PUT - LINK: .../api/empresas/{token}
+------------
+
+Atualizar dados de empresa parceira. Método: PUT - LINK: .../api/empresas/{token}
 
     {
         "razao_social": "BestBuy",
