@@ -73,10 +73,13 @@ class EmpresasParceirasController extends Controller
     function excluiEmpresa(Request $request){
         $id_empresa = $request->input('id_empresa');
         $empresa = EmpresaParceira::findOrFail($id_empresa);
-        $user = User::findOrFail($empresa->user->id);
+
+        if($empresa->user){
+            $user = User::findOrFail($empresa->user->id);
+            $user->delete();
+        }
 
         $empresa->delete();
-        $user->delete();
         session()->flash("Mensagem", "Excluído com sucesso.");
         return redirect()->route('listaempresas'); 
     }
