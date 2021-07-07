@@ -12,7 +12,7 @@ Realizar transação. Método: POST - LINK: .../api/transacoes
     
 ------------
 
-Consultar transações de empresa parceira. Método: GET - LINK: ...//api/transacoes/{token}
+Consultar transações de empresa parceira. Método: GET - LINK: .../api/transacoes/{token}
 
 ------------
 
