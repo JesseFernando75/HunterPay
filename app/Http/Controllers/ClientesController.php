@@ -70,10 +70,13 @@ class ClientesController extends Controller
     function excluiCliente(Request $request){
         $id_cliente = $request->input('id_cliente');
         $cliente = Cliente::findOrFail($id_cliente);
-        $user = User::findOrFail($cliente->user->id);
+
+        if($cliente->user){
+            $user = User::findOrFail($cliente->user->id);
+            $user->delete();
+        }
 
         $cliente->delete();
-        $user->delete();
         session()->flash("Mensagem", "Excluído com sucesso.");
         return redirect()->route('listaclientes');  
     }

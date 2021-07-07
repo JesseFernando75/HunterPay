@@ -48,7 +48,7 @@
 	<!-- Início lista de créditos -->
 	<p class="text-center text-light font-weight-bold fs-4 mt-4">Créditos recebidos</p>
 	 @if(sizeof($creditoscliente) == 0)
-	  <p class="text-center text-danger fs-6">Nenhum crédito recebido até o momento.</p>
+	  <p class="text-center text-danger fs-6 mb-5">Nenhum crédito recebido até o momento.</p>
 	 @else
 		<div class="col-8 list-group mx-auto mt-1 mb-5">
 		 @foreach($creditoscliente as $cv)
