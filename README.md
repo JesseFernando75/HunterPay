@@ -1,3 +1,52 @@
+Orientações para uso da API de consulta.
+
+
+------ TRANSAÇÃO ------
+
+REALIZAR TRANSAÇÃO 
+Método: POST
+LINK: ...//api/transacoes
+
+   {
+        "token": "4637a1c1864e32b6",
+        "cpf": 78987845643,
+        "valor": 40.00
+    }
+
+CONSULTAR TRANSAÇÕES DE EMPRESA PARCEIRA:
+Método: GET
+LINK: ...//api/transacoes/{token}
+
+------ fIM TRANSAÇÃO ------
+
+------ EMPRESA PARCEIRA ------
+
+CADASTRAR EMPRESA PARCEIRA:
+Método: POST
+LINK: .../api/empresas
+
+  {
+        "razao_social": "BestBuy",
+        "cnpj": 78465513645412,
+        "telefone": "(64) 6586-5565"
+    }
+    
+CONSULTAR INFORMAÇÕES DE EMPRESA PARCEIRA:
+Método: GET
+LINK: .../api/empresas/{token}
+
+ATUALIZAR DADOS DE EMPRESA PARCEIRA:
+Método: PUT
+LINK: .../api/empresas/{token}
+
+    {
+        "razao_social": "BestBuy",
+        "cnpj": 78465513645412,
+        "telefone": "(64) 6586-5565"
+    }
+    
+------ FIM EMPRESA PARCEIRA ------
+    
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
