@@ -6,8 +6,8 @@ Orientações para uso da API de consulta.
 REALIZAR TRANSAÇÃO 
 Método: POST
 LINK: ...//api/transacoes
-
-   {
+   
+    {
         "token": "4637a1c1864e32b6",
         "cpf": 78987845643,
         "valor": 40.00
@@ -17,7 +17,6 @@ CONSULTAR TRANSAÇÕES DE EMPRESA PARCEIRA:
 Método: GET
 LINK: ...//api/transacoes/{token}
 
------- fIM TRANSAÇÃO ------
 
 ------ EMPRESA PARCEIRA ------
 
@@ -25,7 +24,7 @@ CADASTRAR EMPRESA PARCEIRA:
 Método: POST
 LINK: .../api/empresas
 
-  {
+    {
         "razao_social": "BestBuy",
         "cnpj": 78465513645412,
         "telefone": "(64) 6586-5565"
